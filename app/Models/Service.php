@@ -15,6 +15,9 @@ class Service extends Model
         'image',
         'phone',
         'whatsapp',
+        'address',
+        'latitude',
+        'longitude',
         'views',
         'status',
     ];

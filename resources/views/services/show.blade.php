@@ -171,16 +171,24 @@
                                         WhatsApp
                                     </a>
                                 @endif
-                                @if($service->user->address || $service->user->city)
-                                    <div class="mt-4 pt-4 border-t border-slate-700/50 flex flex-col gap-2 text-slate-300 text-sm">
-                                        <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Localisation</div>
+                                @if($service->address || $service->latitude || $service->user->address)
+                                    <div class="mt-4 pt-4 border-t border-slate-700/50 flex flex-col gap-4 text-slate-300 text-sm">
+                                        <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Localisation GPS</div>
                                         <div class="flex items-start gap-3">
                                             <i class="fas fa-map-marker-alt text-blue-400 mt-1"></i>
                                             <span class="leading-snug">
-                                                {{ $service->user->address ?? '' }}<br>
+                                                {{ $service->address ?? $service->user->address ?? '' }}<br>
                                                 {{ $service->user->city ?? '' }}
                                             </span>
                                         </div>
+                                        @if($service->latitude && $service->longitude)
+                                            <a href="https://www.google.com/maps/search/?api=1&query={{ $service->latitude }},{{ $service->longitude }}" 
+                                               target="_blank" 
+                                               class="w-full flex items-center justify-center gap-2 bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/20 text-blue-400 font-bold py-3 rounded-xl transition-all active:scale-95 group text-xs uppercase tracking-widest">
+                                                <i class="fas fa-location-arrow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                                                {{ __('Itinéraire GPS') }}
+                                            </a>
+                                        @endif
                                     </div>
                                 @endif
                             </div>
