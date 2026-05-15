@@ -15,10 +15,9 @@ Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
-
 // Authenticated Routes
 Route::middleware('auth')->group(function () {
+    Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
     Route::get('/services/{service}', [ServiceController::class, 'show'])->name('services.show');
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -17,12 +17,21 @@
                         <div class="h-[450px] bg-slate-100 relative overflow-hidden group">
                             @php
                                 $defaultImgs = [
-                                    'plomberie' => 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=1200',
-                                    'electricite' => 'https://images.unsplash.com/photo-1621905252507-b35242f8df49?auto=format&fit=crop&q=80&w=1200',
-                                    'peinture' => 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80&w=1200',
-                                    'nettoyage' => 'https://images.unsplash.com/photo-1581578731522-745d05cb9734?auto=format&fit=crop&q=80&w=1200',
+                                    'plomberie'     => 'https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&w=1200',
+                                    'electricite'   => 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1200&auto=format&fit=crop',
+                                    'peinture'      => 'https://images.pexels.com/photos/1669754/pexels-photo-1669754.jpeg?auto=compress&cs=tinysrgb&w=1200',
+                                    'nettoyage'     => 'https://images.pexels.com/photos/6195125/pexels-photo-6195125.jpeg?auto=compress&cs=tinysrgb&w=1200',
+                                    'climatisation' => 'https://images.pexels.com/photos/3680319/pexels-photo-3680319.jpeg?auto=compress&cs=tinysrgb&w=1200',
+                                    'menuiserie'    => 'https://images.pexels.com/photos/1750059/pexels-photo-1750059.jpeg?auto=compress&cs=tinysrgb&w=1200',
                                 ];
-                                $serviceImg = $service->image ? asset('storage/' . $service->image) : ($defaultImgs[$service->category->slug] ?? 'https://images.unsplash.com/photo-1581578731522-745d05cb9734?auto=format&fit=crop&q=80&w=1200');
+                                $rawImg = trim($service->image ?? '');
+                                if ($rawImg && (str_starts_with($rawImg, 'http') || str_starts_with($rawImg, '//'))) {
+                                    $serviceImg = $rawImg;
+                                } elseif ($rawImg) {
+                                    $serviceImg = asset('storage/' . $rawImg);
+                                } else {
+                                    $serviceImg = $defaultImgs[$service->category->slug] ?? 'https://images.pexels.com/photos/443383/pexels-photo-443383.jpeg?auto=compress&cs=tinysrgb&w=1200';
+                                }
                             @endphp
                             <img src="{{ $serviceImg }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" alt="{{ $service->title }}">
                             <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>

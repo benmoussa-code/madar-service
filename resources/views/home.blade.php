@@ -65,7 +65,7 @@
                     @php
                         $catDetails = [
                             'plomberie' => ['icon' => 'wrench', 'img' => 'https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&w=800'],
-                            'electricite' => ['icon' => 'bolt', 'img' => 'https://images.pexels.com/photos/8470006/pexels-photo-8470006.jpeg?auto=compress&cs=tinysrgb&w=800'],
+                            'electricite' => ['icon' => 'bolt', 'img' => 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=800&auto=format&fit=crop'],
                             'peinture' => ['icon' => 'paint-brush', 'img' => 'https://images.pexels.com/photos/1669754/pexels-photo-1669754.jpeg?auto=compress&cs=tinysrgb&w=800'],
                             'nettoyage' => ['icon' => 'broom', 'img' => 'https://images.pexels.com/photos/6195125/pexels-photo-6195125.jpeg?auto=compress&cs=tinysrgb&w=800'],
                             'climatisation' => ['icon' => 'snowflake', 'img' => 'https://images.pexels.com/photos/3680319/pexels-photo-3680319.jpeg?auto=compress&cs=tinysrgb&w=800'],
@@ -110,7 +110,7 @@
                         @php
                             $defaultImgs = [
                                 'plomberie' => 'https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&w=800',
-                                'electricite' => 'https://images.pexels.com/photos/8470006/pexels-photo-8470006.jpeg?auto=compress&cs=tinysrgb&w=800',
+                                'electricite' => 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=800&auto=format&fit=crop',
                                 'peinture' => 'https://images.pexels.com/photos/1669754/pexels-photo-1669754.jpeg?auto=compress&cs=tinysrgb&w=800',
                                 'nettoyage' => 'https://images.pexels.com/photos/6195125/pexels-photo-6195125.jpeg?auto=compress&cs=tinysrgb&w=800',
                                 'climatisation' => 'https://images.pexels.com/photos/3680319/pexels-photo-3680319.jpeg?auto=compress&cs=tinysrgb&w=800',
