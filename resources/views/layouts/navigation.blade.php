@@ -13,7 +13,7 @@
                         </div>
                         <div class="flex flex-col">
                             <span class="text-2xl font-black text-slate-900 tracking-tighter leading-none">Madar<span class="text-blue-600">Service</span></span>
-                            <span class="text-[8px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-1">Plateforme des Artisans</span>
+                            <span class="text-[8px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-1">{{ __('Plateforme des Artisans') }}</span>
                         </div>
                     </a>
                 </div>
@@ -41,6 +41,28 @@
             </div>
 
             <div class="flex items-center gap-4">
+                <!-- Language Switcher -->
+                <x-dropdown align="right" width="32">
+                    <x-slot name="trigger">
+                        <button class="inline-flex items-center px-4 py-2 border border-slate-100 text-xs font-bold uppercase tracking-widest rounded-xl text-slate-500 bg-slate-50/50 hover:bg-slate-100 hover:text-slate-900 focus:outline-none transition-all">
+                            <i class="fas fa-globe mr-2"></i>
+                            {{ App::getLocale() == 'ar' ? 'العربية' : 'FR' }}
+                            <i class="fas fa-chevron-down ms-2 text-[10px] opacity-30"></i>
+                        </button>
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <div class="p-2 space-y-1">
+                            <x-dropdown-link :href="route('lang.switch', 'fr')" class="rounded-lg text-xs font-bold uppercase tracking-widest">
+                                Français
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('lang.switch', 'ar')" class="rounded-lg text-xs font-bold uppercase tracking-widest text-right" dir="rtl">
+                                العربية
+                            </x-dropdown-link>
+                        </div>
+                    </x-slot>
+                </x-dropdown>
+
                 @auth
                     <!-- Settings Dropdown -->
                     <div class="hidden sm:flex sm:items-center">

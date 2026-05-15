@@ -11,22 +11,22 @@
                 <div class="relative z-10 grid lg:grid-cols-2 gap-16 items-center">
                     <div class="space-y-8">
                         <div class="inline-flex items-center px-4 py-2 bg-blue-500/10 backdrop-blur-xl border border-blue-400/20 rounded-xl text-blue-400 text-[10px] font-bold tracking-[0.2em] uppercase">
-                            Plateforme n°1 au Maroc
+                            {{ __('Plateforme n°1 au Maroc') }}
                         </div>
                         <h1 class="text-6xl md:text-7xl font-black mb-6 leading-[1.05] tracking-tight">
-                            L'excellence à votre <span class="text-blue-500">Service</span>
+                            {{ __("L'excellence à votre") }} <span class="text-blue-500">{{ __('Service') }}</span>
                         </h1>
                         <p class="text-lg opacity-70 max-w-lg font-medium leading-relaxed">
-                            Trouvez instantanément les meilleurs prestataires vérifiés pour tous vos besoins du quotidien.
+                            {{ __('Trouvez instantanément les meilleurs prestataires vérifiés pour tous vos besoins du quotidien.') }}
                         </p>
                         
                         <form action="{{ route('services.index') }}" method="GET" class="flex p-1.5 bg-white rounded-[2rem] max-w-xl shadow-2xl group focus-within:ring-4 focus-within:ring-blue-500/10 transition-all">
                             <div class="flex-1 flex items-center px-6">
                                 <i class="fas fa-search text-slate-300 mr-3"></i>
-                                <input type="text" name="search" placeholder="Que recherchez-vous ?" class="w-full bg-transparent border-none focus:ring-0 text-slate-900 placeholder:text-slate-400 text-sm font-medium py-4">
+                                <input type="text" name="search" placeholder="{{ __('Que recherchez-vous ?') }}" class="w-full bg-transparent border-none focus:ring-0 text-slate-900 placeholder:text-slate-400 text-sm font-medium py-4">
                             </div>
                             <button type="submit" class="bg-blue-600 text-white px-10 py-4 rounded-[1.5rem] font-bold hover:bg-slate-900 transition-all active:scale-95 text-sm">
-                                Rechercher
+                                {{ __('Rechercher') }}
                             </button>
                         </form>
                     </div>
@@ -45,7 +45,7 @@
                                 </div>
                                 <div>
                                     <div class="text-slate-900 font-black text-xl leading-none">100%</div>
-                                    <div class="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-1">Vérifié & Sécurisé</div>
+                                    <div class="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-1">{{ __('Vérifié & Sécurisé') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -56,8 +56,8 @@
             <!-- Categories Section -->
             <div class="mb-32">
                 <div class="flex flex-col items-center text-center mb-16 space-y-4">
-                    <span class="text-blue-600 font-bold text-[10px] uppercase tracking-[0.3em]">Domaines d'expertise</span>
-                    <h2 class="text-4xl font-black text-slate-900 tracking-tight">Catégories Populaires</h2>
+                    <span class="text-blue-600 font-bold text-[10px] uppercase tracking-[0.3em]">{{ __("Domaines d'expertise") }}</span>
+                    <h2 class="text-4xl font-black text-slate-900 tracking-tight">{{ __('Catégories Populaires') }}</h2>
                     <div class="w-12 h-1 bg-slate-200 rounded-full"></div>
                 </div>
                 
@@ -85,7 +85,7 @@
                                 <div class="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 group-hover:bg-blue-600 group-hover:border-blue-500 transition-all">
                                     <i class="fas fa-{{ $cfg['icon'] }} text-xl"></i>
                                 </div>
-                                <h3 class="font-black text-white text-[10px] uppercase tracking-[0.2em] text-center">{{ $category->name }}</h3>
+                                <h3 class="font-black text-white text-[10px] uppercase tracking-[0.2em] text-center">{{ __($category->name) }}</h3>
                             </div>
                         </a>
                     @endforeach
@@ -96,11 +96,11 @@
             <div class="mb-20">
                 <div class="flex justify-between items-end mb-12">
                     <div class="space-y-2">
-                        <span class="text-blue-600 font-bold text-[10px] uppercase tracking-[0.3em]">Qualité garantie</span>
-                        <h2 class="text-4xl font-black text-slate-900 tracking-tight">Services à la Une</h2>
+                        <span class="text-blue-600 font-bold text-[10px] uppercase tracking-[0.3em]">{{ __('Qualité garantie') }}</span>
+                        <h2 class="text-4xl font-black text-slate-900 tracking-tight">{{ __('Services à la Une') }}</h2>
                     </div>
                     <a href="{{ route('services.index') }}" class="group inline-flex items-center text-sm font-bold text-slate-400 hover:text-blue-600 transition-colors">
-                        Voir tout le catalogue
+                        {{ __('Voir tout le catalogue') }}
                         <i class="fas fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform"></i>
                     </a>
                 </div>
@@ -132,20 +132,20 @@
                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                                 <div class="absolute top-6 left-6">
                                     <span class="bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-xl text-[10px] font-bold text-blue-600 shadow-sm uppercase tracking-widest border border-white/20">
-                                        {{ $service->category->name }}
+                                        {{ __($service->category->name) }}
                                     </span>
                                 </div>
                                 <div class="absolute bottom-6 right-6">
                                     <a href="{{ route('services.show', $service) }}" class="bg-blue-600 text-white px-5 py-2 rounded-xl text-sm font-bold shadow-lg shadow-blue-500/20 hover:bg-slate-900 transition-colors">
-                                        Détails
+                                        {{ __('Détails') }}
                                     </a>
                                 </div>
                             </div>
                             <div class="p-8 flex-1 flex flex-col">
                                 <h3 class="text-xl font-bold mb-3 text-slate-800 leading-snug group-hover:text-blue-600 transition-colors">
-                                    {{ $service->title }}
+                                    {{ __($service->title) }}
                                 </h3>
-                                <p class="text-slate-400 text-sm font-medium mb-8 line-clamp-2 leading-relaxed">{{ $service->description }}</p>
+                                <p class="text-slate-400 text-sm font-medium mb-8 line-clamp-2 leading-relaxed">{{ __($service->description) }}</p>
                                 
                                 <div class="mt-auto flex items-center pt-6 border-t border-slate-50">
                                     <div class="flex items-center gap-3">

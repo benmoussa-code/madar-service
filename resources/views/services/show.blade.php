@@ -30,9 +30,9 @@
                             <div class="absolute bottom-8 left-8 right-8 flex items-end justify-between">
                                 <div class="space-y-4">
                                     <span class="bg-blue-600/90 backdrop-blur-md text-white px-4 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] shadow-lg border border-white/20">
-                                        {{ $service->category->name }}
+                                        {{ __($service->category->name) }}
                                     </span>
-                                    <h1 class="text-4xl font-black text-white tracking-tight leading-tight">{{ $service->title }}</h1>
+                                    <h1 class="text-4xl font-black text-white tracking-tight leading-tight">{{ __($service->title) }}</h1>
                                 </div>
                                 <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl text-white text-[10px] font-bold uppercase tracking-widest border border-white/10">
                                     <i class="far fa-eye mr-2"></i>{{ $service->views }} vues
@@ -59,9 +59,9 @@
                             </div>
 
                             <div class="prose prose-slate max-w-none">
-                                <h3 class="text-xl font-bold text-slate-900 mb-6 uppercase tracking-widest text-[11px]">Description du service</h3>
+                                <h3 class="text-xl font-bold text-slate-900 mb-6 uppercase tracking-widest text-[11px]">{{ __('Description du service') }}</h3>
                                 <div class="text-slate-600 leading-relaxed text-lg whitespace-pre-line font-medium">
-                                    {{ $service->description }}
+                                    {{ __($service->description) }}
                                 </div>
                             </div>
                         </div>
