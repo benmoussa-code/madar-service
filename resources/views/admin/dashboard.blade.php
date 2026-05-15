@@ -1,103 +1,117 @@
 <x-app-layout>
-    <div class="py-12 bg-gray-50 min-h-screen">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <h1 class="text-4xl font-black text-gray-900 mb-10">Admin Dashboard</h1>
+    <div class="py-16 bg-[#f8fafc] min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 space-y-1">
+                <h1 class="text-4xl font-black text-slate-900 tracking-tight">Admin Dashboard</h1>
+                <p class="text-slate-400 text-sm font-medium">Surveillance et gestion globale de la plateforme.</p>
+            </div>
 
             <!-- Stats Grid -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-                    <div class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Utilisateurs</div>
-                    <div class="text-4xl font-black text-gray-900">{{ $stats['users'] }}</div>
+                <div class="bg-white p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.02)] border border-slate-100 group hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-500">
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-4">Utilisateurs</div>
+                    <div class="text-3xl font-black text-slate-900 group-hover:text-blue-600 transition-colors">{{ number_format($stats['users'], 0, '.', ' ') }}</div>
                 </div>
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-                    <div class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Services</div>
-                    <div class="text-4xl font-black text-gray-900">{{ $stats['services'] }}</div>
+                <div class="bg-white p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.02)] border border-slate-100 group hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-500">
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-4">Services</div>
+                    <div class="text-3xl font-black text-slate-900 group-hover:text-indigo-600 transition-colors">{{ number_format($stats['services'], 0, '.', ' ') }}</div>
                 </div>
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 border-l-4 border-l-yellow-400">
-                    <div class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">En Attente</div>
-                    <div class="text-4xl font-black text-yellow-600">{{ $stats['pending_services'] }}</div>
+                <div class="bg-white p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.02)] border border-slate-100 group hover:shadow-xl hover:shadow-yellow-500/5 transition-all duration-500 relative overflow-hidden">
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-4">En Attente</div>
+                    <div class="text-3xl font-black text-yellow-600">{{ number_format($stats['pending_services'], 0, '.', ' ') }}</div>
+                    <div class="absolute top-0 right-0 w-1 h-full bg-yellow-400"></div>
                 </div>
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-                    <div class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Avis</div>
-                    <div class="text-4xl font-black text-gray-900">{{ $stats['reviews'] }}</div>
+                <div class="bg-white p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.02)] border border-slate-100 group hover:shadow-xl hover:shadow-emerald-500/5 transition-all duration-500">
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-4">Avis</div>
+                    <div class="text-3xl font-black text-slate-900 group-hover:text-emerald-600 transition-colors">{{ number_format($stats['reviews'], 0, '.', ' ') }}</div>
                 </div>
             </div>
 
             <!-- Recent Activity -->
-            <div class="grid lg:grid-cols-2 gap-8">
+            <div class="grid lg:grid-cols-2 gap-10">
                 <!-- Recent Services -->
-                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div class="p-8 border-b border-gray-50 flex justify-between items-center">
-                        <h2 class="text-xl font-bold text-gray-800">Services Récents</h2>
+                <div class="bg-white rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.02)] border border-slate-100 overflow-hidden">
+                    <div class="p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/30">
+                        <h2 class="text-lg font-bold text-slate-800">Services Récents</h2>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Dernières soumissions</span>
                     </div>
-                    <div class="divide-y divide-gray-50">
-                        @foreach($recentServices as $service)
-                            <div class="p-6 flex items-center justify-between hover:bg-gray-50/50 transition-all">
+                    <div class="divide-y divide-slate-50">
+                        @forelse($recentServices as $service)
+                            <div class="p-6 flex items-center justify-between hover:bg-slate-50/50 transition-all group">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 rounded-xl bg-gray-100 overflow-hidden shrink-0">
+                                    <div class="w-12 h-12 rounded-xl bg-slate-100 overflow-hidden shrink-0 border border-slate-100 group-hover:border-blue-200 transition-colors">
                                         @if($service->image)
-                                            <img src="{{ str_starts_with($service->image, 'http') ? $service->image : asset('storage/' . $service->image) }}" class="w-full h-full object-cover">
+                                            <img src="{{ str_starts_with($service->image, 'http') ? $service->image : asset('storage/' . $service->image) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                        @else
+                                            <div class="w-full h-full flex items-center justify-center text-slate-300">
+                                                <i class="fas fa-image text-sm"></i>
+                                            </div>
                                         @endif
                                     </div>
-                                    <div>
-                                        <div class="font-bold text-gray-800 line-clamp-1">{{ $service->title }}</div>
-                                        <div class="text-xs text-gray-400 font-medium">Par {{ $service->user->name }}</div>
+                                    <div class="min-w-0">
+                                        <div class="font-bold text-slate-800 text-sm truncate group-hover:text-blue-600 transition-colors">{{ $service->title }}</div>
+                                        <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">Par {{ $service->user->name }}</div>
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-4">
-                                    <span class="text-xs font-bold uppercase py-1 px-3 rounded-full {{ $service->status === 'approved' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700' }}">
-                                        {{ $service->status }}
+                                <div class="flex items-center gap-4 shrink-0">
+                                    <span class="text-[9px] font-bold uppercase py-1 px-2.5 rounded-lg border {{ $service->status === 'approved' ? 'bg-green-50 text-green-600 border-green-100' : 'bg-yellow-50 text-yellow-600 border-yellow-100' }}">
+                                        {{ $service->status === 'approved' ? 'Approuvé' : 'Attente' }}
                                     </span>
-                                    <div class="flex gap-2">
+                                    <div class="flex gap-1.5">
                                         <form action="{{ route('admin.services.status', $service) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
                                             <input type="hidden" name="status" value="approved">
-                                            <button type="submit" class="w-8 h-8 bg-green-50 text-green-600 rounded-lg hover:bg-green-600 hover:text-white transition-all flex items-center justify-center">
-                                                <i class="fas fa-check text-xs"></i>
+                                            <button type="submit" class="w-8 h-8 bg-slate-50 text-slate-400 rounded-lg hover:bg-green-600 hover:text-white transition-all flex items-center justify-center active:scale-90 shadow-sm" title="Approuver">
+                                                <i class="fas fa-check text-[10px]"></i>
                                             </button>
                                         </form>
                                         <form action="{{ route('admin.services.status', $service) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
                                             <input type="hidden" name="status" value="rejected">
-                                            <button type="submit" class="w-8 h-8 bg-red-50 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-all flex items-center justify-center">
-                                                <i class="fas fa-times text-xs"></i>
+                                            <button type="submit" class="w-8 h-8 bg-slate-50 text-slate-400 rounded-lg hover:bg-red-600 hover:text-white transition-all flex items-center justify-center active:scale-90 shadow-sm" title="Rejeter">
+                                                <i class="fas fa-times text-[10px]"></i>
                                             </button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @empty
+                            <div class="p-12 text-center text-slate-300">
+                                <p class="text-sm font-medium">Aucun service en attente.</p>
+                            </div>
+                        @endforelse
                     </div>
                 </div>
 
                 <!-- Fast Links -->
                 <div class="space-y-8">
-                    <div class="bg-indigo-700 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
+                    <div class="bg-slate-900 rounded-[2.5rem] p-10 text-white shadow-2xl relative overflow-hidden group cursor-pointer">
                         <div class="relative z-10">
-                            <h2 class="text-2xl font-bold mb-4">Gestion des Utilisateurs</h2>
-                            <p class="opacity-80 mb-6">Bloquez ou supprimez des comptes pour maintenir la sécurité de la plateforme.</p>
-                            <a href="{{ route('admin.users') }}" class="inline-block bg-white text-indigo-700 font-bold px-6 py-3 rounded-xl hover:bg-indigo-50 transition-all shadow-lg">
-                                Gérer les utilisateurs
+                            <h2 class="text-2xl font-black mb-3 tracking-tight">Gestion Utilisateurs</h2>
+                            <p class="text-slate-400 text-sm font-medium mb-8 leading-relaxed">Gérez les comptes clients et prestataires en toute sécurité.</p>
+                            <a href="{{ route('admin.users') }}" class="inline-flex items-center bg-white text-slate-900 font-bold px-6 py-3 rounded-xl hover:bg-blue-600 hover:text-white transition-all shadow-lg text-xs uppercase tracking-widest active:scale-95">
+                                Gérer les comptes
+                                <i class="fas fa-chevron-right ml-2 text-[10px]"></i>
                             </a>
                         </div>
-                        <i class="fas fa-users absolute bottom-0 right-0 -mr-8 -mb-8 text-9xl opacity-10"></i>
+                        <i class="fas fa-users absolute -bottom-8 -right-8 text-[12rem] opacity-[0.03] group-hover:scale-110 transition-transform duration-700"></i>
                     </div>
 
-                    <div class="bg-emerald-600 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
+                    <div class="bg-blue-600 rounded-[2.5rem] p-10 text-white shadow-2xl relative overflow-hidden group cursor-pointer">
                         <div class="relative z-10">
-                            <h2 class="text-2xl font-bold mb-4">Catégories</h2>
-                            <p class="opacity-80 mb-6">Gérez les catégories de services disponibles sur le site.</p>
-                            <a href="{{ route('admin.categories') }}" class="inline-block bg-white text-emerald-600 font-bold px-6 py-3 rounded-xl hover:bg-emerald-50 transition-all shadow-lg">
-                                Gérer les catégories
+                            <h2 class="text-2xl font-black mb-3 tracking-tight">Catégories</h2>
+                            <p class="text-blue-100 text-sm font-medium mb-8 leading-relaxed">Organisez les services par thématiques pertinentes.</p>
+                            <a href="{{ route('admin.categories') }}" class="inline-flex items-center bg-white text-blue-600 font-bold px-6 py-3 rounded-xl hover:bg-slate-900 hover:text-white transition-all shadow-lg text-xs uppercase tracking-widest active:scale-95">
+                                Gérer les thèmes
+                                <i class="fas fa-chevron-right ml-2 text-[10px]"></i>
                             </a>
                         </div>
-                        <i class="fas fa-tags absolute bottom-0 right-0 -mr-8 -mb-8 text-9xl opacity-10"></i>
+                        <i class="fas fa-tags absolute -bottom-8 -right-8 text-[12rem] opacity-[0.1] group-hover:scale-110 transition-transform duration-700"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</x-app-layout>
+</x-app-layout>p-layout>
