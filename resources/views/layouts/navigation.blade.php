@@ -6,12 +6,14 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                        <div class="w-11 h-11 bg-gradient-to-tr from-blue-600 to-blue-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30 group-hover:rotate-12 transition-all duration-300">
-                            <i class="fas fa-compass text-xl"></i>
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center text-white shadow-[0_4px_15px_rgba(37,99,235,0.4)] group-hover:rotate-12 group-hover:scale-105 transition-all duration-300 border border-blue-500/50">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                            </svg>
                         </div>
                         <div class="flex flex-col">
-                            <span class="text-xl font-black text-slate-900 tracking-tight leading-none">Madar<span class="text-blue-600">Service</span></span>
-                            <span class="text-[8px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-1">Expertise Locale</span>
+                            <span class="text-2xl font-black text-slate-900 tracking-tighter leading-none">Madar<span class="text-blue-600">Service</span></span>
+                            <span class="text-[8px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-1">Plateforme des Artisans</span>
                         </div>
                     </a>
                 </div>

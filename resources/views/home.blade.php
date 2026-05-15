@@ -64,17 +64,17 @@
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                     @php
                         $catDetails = [
-                            'plomberie' => ['icon' => 'wrench', 'img' => 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=600'],
-                            'electricite' => ['icon' => 'bolt', 'img' => 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&q=80&w=600'],
-                            'peinture' => ['icon' => 'paint-brush', 'img' => 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80&w=600'],
-                            'nettoyage' => ['icon' => 'broom', 'img' => 'https://images.unsplash.com/photo-1581578731522-745d05cb9734?auto=format&fit=crop&q=80&w=600'],
-                            'climatisation' => ['icon' => 'snowflake', 'img' => 'https://images.unsplash.com/photo-1631541486121-69e0004ccf4f?auto=format&fit=crop&q=80&w=600'],
-                            'menuiserie' => ['icon' => 'hammer', 'img' => 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&q=80&w=600'],
+                            'plomberie' => ['icon' => 'wrench', 'img' => 'https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&w=800'],
+                            'electricite' => ['icon' => 'bolt', 'img' => 'https://images.pexels.com/photos/8470006/pexels-photo-8470006.jpeg?auto=compress&cs=tinysrgb&w=800'],
+                            'peinture' => ['icon' => 'paint-brush', 'img' => 'https://images.pexels.com/photos/1669754/pexels-photo-1669754.jpeg?auto=compress&cs=tinysrgb&w=800'],
+                            'nettoyage' => ['icon' => 'broom', 'img' => 'https://images.pexels.com/photos/6195125/pexels-photo-6195125.jpeg?auto=compress&cs=tinysrgb&w=800'],
+                            'climatisation' => ['icon' => 'snowflake', 'img' => 'https://images.pexels.com/photos/3680319/pexels-photo-3680319.jpeg?auto=compress&cs=tinysrgb&w=800'],
+                            'menuiserie' => ['icon' => 'hammer', 'img' => 'https://images.pexels.com/photos/1750059/pexels-photo-1750059.jpeg?auto=compress&cs=tinysrgb&w=800'],
                         ];
                     @endphp
                     @foreach($categories as $category)
                         @php 
-                            $cfg = $catDetails[$category->slug] ?? ['icon' => 'star', 'img' => 'https://images.unsplash.com/photo-1581578731522-745d05cb9734?auto=format&fit=crop&q=80&w=600'];
+                            $cfg = $catDetails[$category->slug] ?? ['icon' => 'star', 'img' => 'https://images.pexels.com/photos/443383/pexels-photo-443383.jpeg?auto=compress&cs=tinysrgb&w=800'];
                             $catImg = $cfg['img'];
                         @endphp
                         <a href="{{ route('services.index', ['category' => $category->slug]) }}" 
@@ -109,12 +109,12 @@
                     @foreach($latestServices as $service)
                         @php
                             $defaultImgs = [
-                                'plomberie' => 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=600',
-                                'electricite' => 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&q=80&w=600',
-                                'peinture' => 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80&w=600',
-                                'nettoyage' => 'https://images.unsplash.com/photo-1581578731522-745d05cb9734?auto=format&fit=crop&q=80&w=600',
-                                'climatisation' => 'https://images.unsplash.com/photo-1631541486121-69e0004ccf4f?auto=format&fit=crop&q=80&w=600',
-                                'menuiserie' => 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&q=80&w=600',
+                                'plomberie' => 'https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&w=800',
+                                'electricite' => 'https://images.pexels.com/photos/8470006/pexels-photo-8470006.jpeg?auto=compress&cs=tinysrgb&w=800',
+                                'peinture' => 'https://images.pexels.com/photos/1669754/pexels-photo-1669754.jpeg?auto=compress&cs=tinysrgb&w=800',
+                                'nettoyage' => 'https://images.pexels.com/photos/6195125/pexels-photo-6195125.jpeg?auto=compress&cs=tinysrgb&w=800',
+                                'climatisation' => 'https://images.pexels.com/photos/3680319/pexels-photo-3680319.jpeg?auto=compress&cs=tinysrgb&w=800',
+                                'menuiserie' => 'https://images.pexels.com/photos/1750059/pexels-photo-1750059.jpeg?auto=compress&cs=tinysrgb&w=800',
                             ];
                             
                             $rawImg = trim($service->image ?? '');
@@ -123,7 +123,7 @@
                             } elseif ($rawImg) {
                                 $serviceImg = asset('storage/' . $rawImg);
                             } else {
-                                $serviceImg = $defaultImgs[$service->category->slug] ?? 'https://images.unsplash.com/photo-1581578731522-745d05cb9734?auto=format&fit=crop&q=80&w=600';
+                                $serviceImg = $defaultImgs[$service->category->slug] ?? 'https://images.pexels.com/photos/443383/pexels-photo-443383.jpeg?auto=compress&cs=tinysrgb&w=800';
                             }
                         @endphp
                         <div class="group bg-white rounded-[2.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_25px_60px_rgba(0,0,0,0.08)] transition-all duration-500 border border-slate-100 flex flex-col h-full overflow-hidden hover:-translate-y-2">
@@ -136,9 +136,9 @@
                                     </span>
                                 </div>
                                 <div class="absolute bottom-6 right-6">
-                                    <div class="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-lg shadow-blue-500/20">
-                                        {{ number_format($service->price, 0, '.', ' ') }} <span class="text-[10px] opacity-60 ml-0.5">DH</span>
-                                    </div>
+                                    <a href="{{ route('services.show', $service) }}" class="bg-blue-600 text-white px-5 py-2 rounded-xl text-sm font-bold shadow-lg shadow-blue-500/20 hover:bg-slate-900 transition-colors">
+                                        Détails
+                                    </a>
                                 </div>
                             </div>
                             <div class="p-8 flex-1 flex flex-col">
@@ -147,19 +147,16 @@
                                 </h3>
                                 <p class="text-slate-400 text-sm font-medium mb-8 line-clamp-2 leading-relaxed">{{ $service->description }}</p>
                                 
-                                <div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-50">
+                                <div class="mt-auto flex items-center pt-6 border-t border-slate-50">
                                     <div class="flex items-center gap-3">
                                         <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 font-bold text-[10px] shadow-inner uppercase">
                                             {{ substr($service->user->name, 0, 1) }}
                                         </div>
                                         <div class="flex flex-col">
                                             <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider leading-none mb-1">Expert</span>
-                                            <span class="text-xs font-bold text-slate-800 leading-none truncate w-24">{{ $service->user->name }}</span>
+                                            <span class="text-xs font-bold text-slate-800 leading-none truncate w-32">{{ $service->user->name }}</span>
                                         </div>
                                     </div>
-                                    <a href="{{ route('services.show', $service) }}" class="bg-slate-900 text-white w-10 h-10 rounded-xl flex items-center justify-center hover:bg-blue-600 transition-all shadow-lg active:scale-90">
-                                        <i class="fas fa-arrow-right text-xs"></i>
-                                    </a>
                                 </div>
                             </div>
                         </div>

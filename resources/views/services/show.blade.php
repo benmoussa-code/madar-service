@@ -162,6 +162,18 @@
                                         WhatsApp
                                     </a>
                                 @endif
+                                @if($service->user->address || $service->user->city)
+                                    <div class="mt-4 pt-4 border-t border-slate-700/50 flex flex-col gap-2 text-slate-300 text-sm">
+                                        <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Localisation</div>
+                                        <div class="flex items-start gap-3">
+                                            <i class="fas fa-map-marker-alt text-blue-400 mt-1"></i>
+                                            <span class="leading-snug">
+                                                {{ $service->user->address ?? '' }}<br>
+                                                {{ $service->user->city ?? '' }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
 
