@@ -13,6 +13,7 @@ class Announcement extends Model
         'category_id',
         'title',
         'description',
+        'image',
         'service_date',
         'status',
     ];

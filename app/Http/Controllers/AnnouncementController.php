@@ -39,16 +39,19 @@ class AnnouncementController extends Controller
             'category_id' => 'required|exists:categories,id',
             'description' => 'required|string',
             'service_date' => 'required|date|after_or_equal:today',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        Announcement::create([
-            'user_id' => auth()->id(),
-            'category_id' => $request->category_id,
-            'title' => $request->title,
-            'description' => $request->description,
-            'service_date' => $request->service_date,
-            'status' => 'open',
-        ]);
+        $data = $request->only(['category_id', 'title', 'description', 'service_date']);
+        $data['user_id'] = auth()->id();
+        $data['status'] = 'open';
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('announcements', 'public');
+            $data['image'] = $path;
+        }
+
+        Announcement::create($data);
 
         return redirect()->route('home')->with('success', 'Votre annonce a été publiée avec succès.');
     }

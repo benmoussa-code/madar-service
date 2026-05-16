@@ -134,9 +134,15 @@
                         @forelse($recentAnnouncements as $announcement)
                             <div class="p-6 flex items-center justify-between hover:bg-slate-50/50 transition-all group">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-500 border border-indigo-100">
-                                        <i class="fas fa-bullhorn text-sm"></i>
-                                    </div>
+                                    @if($announcement->image)
+                                        <div class="w-10 h-10 rounded-xl overflow-hidden border border-slate-100 shrink-0">
+                                            <img src="{{ asset('storage/' . $announcement->image) }}" class="w-full h-full object-cover" alt="Thumb">
+                                        </div>
+                                    @else
+                                        <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-500 border border-indigo-100">
+                                            <i class="fas fa-bullhorn text-sm"></i>
+                                        </div>
+                                    @endif
                                     <div class="min-w-0">
                                         <div class="font-bold text-slate-800 text-sm truncate">{{ $announcement->title }}</div>
                                         <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">Par {{ $announcement->user->name }} • {{ $announcement->category->name }}</div>

@@ -46,7 +46,17 @@
                                 </div>
                                 
                                 <h2 class="text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{{ $announcement->title }}</h2>
-                                <p class="text-slate-500 leading-relaxed font-medium">{{ $announcement->description }}</p>
+                                
+                                <div class="flex flex-col lg:flex-row gap-6">
+                                    <div class="flex-1">
+                                        <p class="text-slate-500 leading-relaxed font-medium">{{ $announcement->description }}</p>
+                                    </div>
+                                    @if($announcement->image)
+                                        <div class="lg:w-48 h-32 rounded-2xl overflow-hidden shrink-0 border border-slate-100">
+                                            <img src="{{ asset('storage/' . $announcement->image) }}" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Illustration">
+                                        </div>
+                                    @endif
+                                </div>
                                 
                                 <div class="pt-6 border-t border-slate-50 flex items-center justify-between">
                                     <div class="flex items-center gap-3">
