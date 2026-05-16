@@ -124,7 +124,7 @@
                         </div>
                         <div class="flex-1 overflow-y-auto custom-scrollbar">
                             @forelse($messages as $message)
-                                <div class="p-6 hover:bg-slate-50 transition-colors border-b border-slate-50/50 last:border-0 group cursor-pointer">
+                                <div class="p-6 hover:bg-slate-50 transition-colors border-b border-slate-50/50 last:border-0 group">
                                     <div class="flex items-center gap-3 mb-3">
                                         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-slate-600 text-xs font-bold uppercase shadow-inner group-hover:from-blue-500 group-hover:to-blue-600 group-hover:text-white transition-all">
                                             {{ substr($message->sender->name, 0, 1) }}
@@ -133,8 +133,18 @@
                                             <div class="text-sm font-bold text-slate-800 truncate">{{ $message->sender->name }}</div>
                                             <div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">{{ $message->created_at->diffForHumans() }}</div>
                                         </div>
+                                        <button onclick="toggleMessageReply('{{ $message->id }}')" class="text-[10px] text-slate-300 hover:text-blue-600 transition-colors">
+                                            <i class="fas fa-reply"></i>
+                                        </button>
                                     </div>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2 group-hover:text-slate-700 transition-colors">{{ $message->content }}</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2 group-hover:text-slate-700 transition-colors mb-3">{{ $message->content }}</p>
+                                    
+                                    <form id="msg-reply-{{ $message->id }}" action="{{ route('messages.store') }}" method="POST" class="hidden space-y-2">
+                                        @csrf
+                                        <input type="hidden" name="receiver_id" value="{{ $message->sender_id }}">
+                                        <textarea name="content" rows="2" class="w-full rounded-xl border-slate-100 bg-white text-[10px] focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 py-2 px-3 transition-all" placeholder="Votre message..."></textarea>
+                                        <button type="submit" class="bg-blue-600 text-white text-[9px] font-bold px-3 py-1.5 rounded-lg hover:bg-slate-900 transition-all uppercase tracking-widest">Répondre</button>
+                                    </form>
                                 </div>
                             @empty
                                 <div class="h-full flex flex-col items-center justify-center p-12 text-center text-slate-300">
@@ -155,7 +165,7 @@
                         </div>
                         <div class="flex-1 overflow-y-auto custom-scrollbar">
                             @forelse($reviews as $review)
-                                <div class="p-6 border-b border-slate-50 last:border-0">
+                                <div class="p-6 border-b border-slate-50 last:border-0 group">
                                     <div class="flex items-center gap-2 mb-2">
                                         <div class="flex text-yellow-400 text-[8px]">
                                             @for($i = 1; $i <= 5; $i++)
@@ -165,7 +175,24 @@
                                         <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">{{ $review->created_at->diffForHumans() }}</span>
                                     </div>
                                     <p class="text-xs text-slate-600 italic mb-2 line-clamp-2">"{{ $review->comment }}"</p>
-                                    <div class="text-[10px] font-bold text-blue-600 uppercase tracking-widest truncate">sur {{ $review->service->title }}</div>
+                                    <div class="text-[10px] font-bold text-blue-600 uppercase tracking-widest truncate mb-3">sur {{ $review->service->title }}</div>
+                                    
+                                    @if($review->reply)
+                                        <div class="bg-blue-50/50 p-3 rounded-xl border border-blue-100/50">
+                                            <div class="text-[8px] font-bold text-blue-400 uppercase tracking-widest mb-1">Votre réponse :</div>
+                                            <p class="text-[10px] text-slate-500 italic">{{ $review->reply }}</p>
+                                        </div>
+                                    @else
+                                        <button onclick="toggleReply('{{ $review->id }}')" class="text-[9px] font-bold text-slate-400 hover:text-blue-600 uppercase tracking-widest transition-colors">
+                                            <i class="fas fa-reply mr-1"></i> Répondre
+                                        </button>
+                                        <form id="reply-form-{{ $review->id }}" action="{{ route('provider.reviews.reply', $review) }}" method="POST" class="hidden mt-3 space-y-2">
+                                            @csrf
+                                            @method('PATCH')
+                                            <textarea name="reply" rows="2" class="w-full rounded-xl border-slate-100 bg-slate-50/50 text-[10px] focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 py-2 px-3 transition-all placeholder:text-slate-300" placeholder="Votre réponse..."></textarea>
+                                            <button type="submit" class="bg-blue-600 text-white text-[9px] font-bold px-3 py-1.5 rounded-lg hover:bg-slate-900 transition-all uppercase tracking-widest">Envoyer</button>
+                                        </form>
+                                    @endif
                                 </div>
                             @empty
                                 <div class="h-full flex items-center justify-center p-8 text-center text-slate-300">
@@ -178,6 +205,17 @@
             </div>
         </div>
     </div>
+    
+    <script>
+        function toggleReply(id) {
+            const form = document.getElementById('reply-form-' + id);
+            form.classList.toggle('hidden');
+        }
+        function toggleMessageReply(id) {
+            const form = document.getElementById('msg-reply-' + id);
+            form.classList.toggle('hidden');
+        }
+    </script>
     
     <style>
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }

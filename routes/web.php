@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:provider')->prefix('provider')->name('provider.')->group(function () {
         Route::get('/dashboard', [ProviderController::class, 'index'])->name('dashboard');
         Route::resource('services', ServiceController::class)->except(['index', 'show']);
+        Route::patch('/reviews/{review}/reply', [ReviewController::class, 'reply'])->name('reviews.reply');
     });
 
     // Admin Routes

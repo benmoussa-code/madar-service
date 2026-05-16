@@ -22,4 +22,22 @@ class ReviewController extends Controller
 
         return back()->with('success', 'Merci pour votre avis !');
     }
+
+    public function reply(Request $request, \App\Models\Review $review)
+    {
+        // Check if the current user is the owner of the service
+        if (auth()->id() !== $review->service->user_id) {
+            abort(403);
+        }
+
+        $request->validate([
+            'reply' => 'required|string|max:500',
+        ]);
+
+        $review->update([
+            'reply' => $request->reply,
+        ]);
+
+        return back()->with('success', 'Votre réponse a été enregistrée.');
+    }
 }
