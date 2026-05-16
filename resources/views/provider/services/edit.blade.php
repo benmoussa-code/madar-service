@@ -92,9 +92,9 @@
                     <div class="space-y-4">
                         <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Portfolio (Images de votre travail)</label>
                         
-                        @if($service->images->count() > 0)
+                        @if($service->portfolioImages->count() > 0)
                             <div class="grid grid-cols-4 gap-4 mb-4">
-                                @foreach($service->images as $img)
+                                @foreach($service->portfolioImages as $img)
                                     <div class="relative aspect-square rounded-xl overflow-hidden border border-slate-100">
                                         <img src="{{ asset('storage/' . $img->image_path) }}" class="w-full h-full object-cover">
                                     </div>

@@ -74,11 +74,11 @@
                                 </div>
                             </div>
                             
-                            @if($service->images->count() > 0)
+                            @if($service->portfolioImages->count() > 0)
                                 <div class="mt-14 pt-10 border-t border-slate-50">
                                     <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-6">Portfolio / Travaux réalisés</h3>
                                     <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                                        @foreach($service->images as $portfolioImage)
+                                        @foreach($service->portfolioImages as $portfolioImage)
                                             <div class="aspect-square rounded-3xl overflow-hidden border border-slate-100 shadow-sm group cursor-pointer">
                                                 <img src="{{ asset('storage/' . $portfolioImage->image_path) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                                             </div>

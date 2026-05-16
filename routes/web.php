@@ -53,7 +53,10 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
         Route::get('/users', [AdminController::class, 'users'])->name('users');
-        Route::patch('/users/{user}/status', [AdminController::class, 'updateUserStatus'])->name('users.status');
+        Route::get('/providers/{user}', [AdminController::class, 'showProvider'])->name('providers.show');
+        Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('users.destroy');
+        Route::delete('/services/{service}', [AdminController::class, 'destroyService'])->name('services.destroy');
+        Route::delete('/announcements/{announcement}', [AdminController::class, 'destroyAnnouncement'])->name('announcements.destroy');
         Route::patch('/services/{service}/status', [AdminController::class, 'updateServiceStatus'])->name('services.status');
         Route::get('/categories', [AdminController::class, 'categories'])->name('categories');
     });

@@ -37,7 +37,7 @@ class Service extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function images()
+    public function portfolioImages()
     {
         return $this->hasMany(ServiceImage::class);
     }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
+    protected $table = 'avis';
     protected $fillable = ['service_id', 'user_id', 'rating', 'comment', 'reply'];
 
     public function service()

@@ -64,7 +64,7 @@ class ServiceController extends Controller
         if ($request->hasFile('portfolio')) {
             foreach ($request->file('portfolio') as $image) {
                 $path = $image->store('portfolio', 'public');
-                $service->images()->create(['image_path' => $path]);
+                $service->portfolioImages()->create(['image_path' => $path]);
             }
         }
 
@@ -79,7 +79,7 @@ class ServiceController extends Controller
         }
 
         $service->increment('views');
-        $service->load(['user', 'category', 'reviews.user', 'images']);
+        $service->load(['user', 'category', 'reviews.user', 'portfolioImages']);
         return view('services.show', compact('service'));
     }
 
@@ -87,7 +87,7 @@ class ServiceController extends Controller
     {
         $this->authorize('update', $service);
         $categories = \App\Models\Category::all();
-        $service->load('images');
+        $service->load('portfolioImages');
         return view('provider.services.edit', compact('service', 'categories'));
     }
 
@@ -116,7 +116,7 @@ class ServiceController extends Controller
         if ($request->hasFile('portfolio')) {
             foreach ($request->file('portfolio') as $image) {
                 $path = $image->store('portfolio', 'public');
-                $service->images()->create(['image_path' => $path]);
+                $service->portfolioImages()->create(['image_path' => $path]);
             }
         }
 

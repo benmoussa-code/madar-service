@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('reviews', function (Blueprint $table) {
+        Schema::table('avis', function (Blueprint $table) {
             $table->text('reply')->nullable()->after('comment');
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('reviews', function (Blueprint $table) {
+        Schema::table('avis', function (Blueprint $table) {
             //
         });
     }

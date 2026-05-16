@@ -9,25 +9,43 @@ class AdminController extends Controller
     public function index()
     {
         $stats = [
-            'users' => \App\Models\User::count(),
-            'services' => \App\Models\Service::count(),
+            'total_users' => \App\Models\User::count(),
+            'total_providers' => \App\Models\User::where('role', 'provider')->count(),
+            'avg_satisfaction' => \App\Models\Review::avg('rating') ?: 0,
             'pending_services' => \App\Models\Service::where('status', 'pending')->count(),
-            'reviews' => \App\Models\Review::count(),
         ];
-        $recentServices = \App\Models\Service::latest()->take(5)->get();
-        return view('admin.dashboard', compact('stats', 'recentServices'));
+        
+        $users = \App\Models\User::where('role', '!=', 'admin')->latest()->take(10)->get();
+        $recentServices = \App\Models\Service::where('status', 'pending')->latest()->get();
+        $recentAnnouncements = \App\Models\Announcement::latest()->take(10)->get();
+        
+        return view('admin.dashboard', compact('stats', 'users', 'recentServices', 'recentAnnouncements'));
     }
 
-    public function users()
+    public function destroyAnnouncement(\App\Models\Announcement $announcement)
     {
-        $users = \App\Models\User::latest()->paginate(20);
-        return view('admin.users', compact('users'));
+        $announcement->delete();
+        return back()->with('success', 'Annonce supprimée avec succès.');
     }
 
-    public function updateUserStatus(\App\Models\User $user, Request $request)
+    public function destroyUser(\App\Models\User $user)
     {
-        $user->update(['status' => $request->status]);
-        return back()->with('success', 'Statut de l\'utilisateur mis à jour.');
+        if ($user->role === 'admin') abort(403);
+        $user->delete();
+        return back()->with('success', 'Utilisateur supprimé avec succès.');
+    }
+
+    public function showProvider(\App\Models\User $user)
+    {
+        if ($user->role !== 'provider') abort(404);
+        $services = $user->services()->with('portfolioImages')->latest()->get();
+        return view('admin.provider-show', compact('user', 'services'));
+    }
+
+    public function destroyService(\App\Models\Service $service)
+    {
+        $service->delete();
+        return back()->with('success', 'Service supprimé avec succès.');
     }
 
     public function updateServiceStatus(\App\Models\Service $service, Request $request)

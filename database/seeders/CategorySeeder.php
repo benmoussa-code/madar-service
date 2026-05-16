@@ -19,6 +19,7 @@ class CategorySeeder extends Seeder
             ['name' => 'Nettoyage', 'slug' => 'nettoyage', 'icon' => 'broom'],
             ['name' => 'Climatisation', 'slug' => 'climatisation', 'icon' => 'snowflake'],
             ['name' => 'Menuiserie', 'slug' => 'menuiserie', 'icon' => 'hammer'],
+            ['name' => 'Autres', 'slug' => 'autres', 'icon' => 'ellipsis-h'],
         ];
 
         foreach ($categories as $category) {

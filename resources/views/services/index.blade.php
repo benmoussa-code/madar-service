@@ -63,7 +63,7 @@
                     <div class="mb-10 flex flex-col md:flex-row justify-between md:items-end gap-6">
                         <div class="space-y-1">
                             <h1 class="text-4xl font-black text-slate-900 tracking-tight">
-                                @if(request('category'))
+                                @if(request('category') && $categories->where('slug', request('category'))->first())
                                     {{ __($categories->where('slug', request('category'))->first()->name) }}
                                 @else
                                     {{ __('Tous les Services') }}
