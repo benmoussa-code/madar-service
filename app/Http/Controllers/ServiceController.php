@@ -11,6 +11,11 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
+        // If a provider tries to browse the general catalog, redirect to their dashboard
+        if (auth()->check() && auth()->user()->role === 'provider') {
+            return redirect()->route('provider.dashboard');
+        }
+
         $query = \App\Models\Service::where('status', 'approved');
 
         if ($request->has('category')) {
@@ -43,6 +48,7 @@ class ServiceController extends Controller
             'description' => 'required|string',
             'price' => 'nullable|numeric',
             'image' => 'nullable|image|max:2048',
+            'portfolio.*' => 'nullable|image|max:2048',
         ]);
 
         $service = new \App\Models\Service($request->all());
@@ -55,26 +61,39 @@ class ServiceController extends Controller
 
         $service->save();
 
+        if ($request->hasFile('portfolio')) {
+            foreach ($request->file('portfolio') as $image) {
+                $path = $image->store('portfolio', 'public');
+                $service->images()->create(['image_path' => $path]);
+            }
+        }
+
         return redirect()->route('provider.dashboard')->with('success', 'Service créé avec succès. En attente de validation.');
     }
 
     public function show(\App\Models\Service $service)
     {
+        // Enforce policy: providers can only see their own services
+        if (auth()->check() && auth()->user()->role === 'provider' && auth()->id() !== $service->user_id) {
+            abort(403, 'Vous ne pouvez consulter que vos propres services.');
+        }
+
         $service->increment('views');
-        $service->load(['user', 'category', 'reviews.user']);
+        $service->load(['user', 'category', 'reviews.user', 'images']);
         return view('services.show', compact('service'));
     }
 
     public function edit(\App\Models\Service $service)
     {
-        if (auth()->id() !== $service->user_id) abort(403);
+        $this->authorize('update', $service);
         $categories = \App\Models\Category::all();
+        $service->load('images');
         return view('provider.services.edit', compact('service', 'categories'));
     }
 
     public function update(Request $request, \App\Models\Service $service)
     {
-        if (auth()->id() !== $service->user_id) abort(403);
+        $this->authorize('update', $service);
 
         $request->validate([
             'title' => 'required|string|max:255',
@@ -82,6 +101,7 @@ class ServiceController extends Controller
             'description' => 'required|string',
             'price' => 'nullable|numeric',
             'image' => 'nullable|image|max:2048',
+            'portfolio.*' => 'nullable|image|max:2048',
         ]);
 
         $service->fill($request->all());
@@ -93,12 +113,19 @@ class ServiceController extends Controller
 
         $service->save();
 
+        if ($request->hasFile('portfolio')) {
+            foreach ($request->file('portfolio') as $image) {
+                $path = $image->store('portfolio', 'public');
+                $service->images()->create(['image_path' => $path]);
+            }
+        }
+
         return redirect()->route('provider.dashboard')->with('success', 'Service mis à jour.');
     }
 
     public function destroy(\App\Models\Service $service)
     {
-        if (auth()->id() !== $service->user_id) abort(403);
+        $this->authorize('delete', $service);
         $service->delete();
         return redirect()->route('provider.dashboard')->with('success', 'Service supprimé.');
     }

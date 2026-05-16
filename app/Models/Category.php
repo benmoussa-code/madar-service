@@ -12,4 +12,9 @@ class Category extends Model
     {
         return $this->hasMany(Service::class);
     }
+
+    public function announcements()
+    {
+        return $this->hasMany(Announcement::class);
+    }
 }

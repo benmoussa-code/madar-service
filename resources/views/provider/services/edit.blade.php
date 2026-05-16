@@ -89,6 +89,33 @@
                         @error('image') <p class="text-red-500 text-[10px] font-bold mt-1 ml-1">{{ $message }}</p> @enderror
                     </div>
 
+                    <div class="space-y-4">
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Portfolio (Images de votre travail)</label>
+                        
+                        @if($service->images->count() > 0)
+                            <div class="grid grid-cols-4 gap-4 mb-4">
+                                @foreach($service->images as $img)
+                                    <div class="relative aspect-square rounded-xl overflow-hidden border border-slate-100">
+                                        <img src="{{ asset('storage/' . $img->image_path) }}" class="w-full h-full object-cover">
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+
+                        <div class="group relative mt-1 flex justify-center px-6 pt-6 pb-6 border-2 border-slate-100 border-dashed rounded-3xl hover:border-blue-400 hover:bg-blue-50/30 transition-all cursor-pointer overflow-hidden">
+                            <div class="space-y-2 text-center relative z-10">
+                                <div class="w-12 h-12 bg-slate-50 text-slate-400 rounded-2xl flex items-center justify-center mx-auto mb-2 group-hover:scale-110 group-hover:text-blue-500 transition-all">
+                                    <i class="fas fa-images text-xl"></i>
+                                </div>
+                                <div class="flex text-xs text-slate-600 justify-center">
+                                    <span class="font-bold text-blue-600">Ajouter des images au portfolio</span>
+                                </div>
+                            </div>
+                            <input type="file" name="portfolio[]" multiple class="absolute inset-0 opacity-0 cursor-pointer z-20">
+                        </div>
+                        @error('portfolio.*') <p class="text-red-500 text-[10px] font-bold mt-1 ml-1">{{ $message }}</p> @enderror
+                    </div>
+
                     <div class="pt-6">
                         <button type="submit" class="w-full bg-slate-900 text-white font-bold py-5 rounded-2xl hover:bg-blue-600 transition-all shadow-xl hover:shadow-blue-500/20 active:scale-[0.98] text-sm uppercase tracking-widest">
                             Mettre à jour le service

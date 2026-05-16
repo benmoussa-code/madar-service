@@ -10,6 +10,7 @@ use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\AnnouncementController;
 
 Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
 
@@ -35,6 +36,11 @@ Route::middleware('auth')->group(function () {
     // Client Routes
     Route::post('/services/{service}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
+
+    // Announcements (Job Requests)
+    Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
+    Route::get('/announcements/create', [AnnouncementController::class, 'create'])->name('announcements.create');
+    Route::post('/announcements', [AnnouncementController::class, 'store'])->name('announcements.store');
 
     // Provider Routes
     Route::middleware('role:provider')->prefix('provider')->name('provider.')->group(function () {

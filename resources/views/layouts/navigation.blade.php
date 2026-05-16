@@ -23,8 +23,13 @@
                     <a href="{{ route('home') }}" class="inline-flex items-center px-4 pt-1 border-b-2 {{ request()->routeIs('home') ? 'border-blue-600 text-slate-900' : 'border-transparent text-slate-400 hover:text-slate-600' }} text-xs font-bold uppercase tracking-widest transition-all">
                         {{ __('Accueil') }}
                     </a>
-                    <a href="{{ route('services.index') }}" class="inline-flex items-center px-4 pt-1 border-b-2 {{ request()->routeIs('services.*') && !request()->routeIs('provider.*') ? 'border-blue-600 text-slate-900' : 'border-transparent text-slate-400 hover:text-slate-600' }} text-xs font-bold uppercase tracking-widest transition-all">
-                        {{ __('Services') }}
+                    @if(!auth()->check() || auth()->user()->role !== 'provider')
+                        <a href="{{ route('services.index') }}" class="inline-flex items-center px-4 pt-1 border-b-2 {{ request()->routeIs('services.*') && !request()->routeIs('provider.*') ? 'border-blue-600 text-slate-900' : 'border-transparent text-slate-400 hover:text-slate-600' }} text-xs font-bold uppercase tracking-widest transition-all">
+                            {{ __('Services') }}
+                        </a>
+                    @endif
+                    <a href="{{ route('announcements.index') }}" class="inline-flex items-center px-4 pt-1 border-b-2 {{ request()->routeIs('announcements.*') ? 'border-blue-600 text-slate-900' : 'border-transparent text-slate-400 hover:text-slate-600' }} text-xs font-bold uppercase tracking-widest transition-all">
+                        {{ __('Annonces') }}
                     </a>
                     @auth
                         @if(auth()->user()->isAdmin())
@@ -126,8 +131,13 @@
             <a href="{{ route('home') }}" class="block px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-widest {{ request()->routeIs('home') ? 'bg-blue-50 text-blue-600' : 'text-slate-500 hover:bg-slate-50' }}">
                 {{ __('Accueil') }}
             </a>
-            <a href="{{ route('services.index') }}" class="block px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-widest {{ request()->routeIs('services.*') ? 'bg-blue-50 text-blue-600' : 'text-slate-500 hover:bg-slate-50' }}">
-                {{ __('Services') }}
+            @if(!auth()->check() || auth()->user()->role !== 'provider')
+                <a href="{{ route('services.index') }}" class="block px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-widest {{ request()->routeIs('services.*') ? 'bg-blue-50 text-blue-600' : 'text-slate-500 hover:bg-slate-50' }}">
+                    {{ __('Services') }}
+                </a>
+            @endif
+            <a href="{{ route('announcements.index') }}" class="block px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-widest {{ request()->routeIs('announcements.*') ? 'bg-blue-50 text-blue-600' : 'text-slate-500 hover:bg-slate-50' }}">
+                {{ __('Annonces') }}
             </a>
             
             @auth

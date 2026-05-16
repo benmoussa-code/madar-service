@@ -64,19 +64,34 @@
 
                     <div class="space-y-2">
                         <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Image de couverture</label>
-                        <div class="group relative mt-1 flex justify-center px-6 pt-10 pb-10 border-2 border-slate-100 border-dashed rounded-3xl hover:border-blue-400 hover:bg-blue-50/30 transition-all cursor-pointer overflow-hidden">
+                        <div class="group relative mt-1 flex justify-center px-6 pt-6 pb-6 border-2 border-slate-100 border-dashed rounded-3xl hover:border-blue-400 hover:bg-blue-50/30 transition-all cursor-pointer overflow-hidden">
                             <div class="space-y-2 text-center relative z-10">
-                                <div class="w-16 h-16 bg-slate-50 text-slate-400 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:text-blue-500 transition-all">
-                                    <i class="fas fa-cloud-upload-alt text-2xl"></i>
+                                <div class="w-12 h-12 bg-slate-50 text-slate-400 rounded-2xl flex items-center justify-center mx-auto mb-2 group-hover:scale-110 group-hover:text-blue-500 transition-all">
+                                    <i class="fas fa-cloud-upload-alt text-xl"></i>
                                 </div>
-                                <div class="flex text-sm text-slate-600 justify-center">
-                                    <span class="font-bold text-blue-600">Télécharger un fichier</span>
+                                <div class="flex text-xs text-slate-600 justify-center">
+                                    <span class="font-bold text-blue-600">Télécharger la couverture</span>
                                 </div>
-                                <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">PNG, JPG up to 2MB</p>
                             </div>
                             <input type="file" name="image" class="absolute inset-0 opacity-0 cursor-pointer z-20">
                         </div>
                         @error('image') <p class="text-red-500 text-[10px] font-bold mt-1 ml-1">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Portfolio (Images de votre travail)</label>
+                        <div class="group relative mt-1 flex justify-center px-6 pt-6 pb-6 border-2 border-slate-100 border-dashed rounded-3xl hover:border-blue-400 hover:bg-blue-50/30 transition-all cursor-pointer overflow-hidden">
+                            <div class="space-y-2 text-center relative z-10">
+                                <div class="w-12 h-12 bg-slate-50 text-slate-400 rounded-2xl flex items-center justify-center mx-auto mb-2 group-hover:scale-110 group-hover:text-blue-500 transition-all">
+                                    <i class="fas fa-images text-xl"></i>
+                                </div>
+                                <div class="flex text-xs text-slate-600 justify-center">
+                                    <span class="font-bold text-blue-600">Télécharger plusieurs images</span>
+                                </div>
+                            </div>
+                            <input type="file" name="portfolio[]" multiple class="absolute inset-0 opacity-0 cursor-pointer z-20">
+                        </div>
+                        @error('portfolio.*') <p class="text-red-500 text-[10px] font-bold mt-1 ml-1">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="pt-6">

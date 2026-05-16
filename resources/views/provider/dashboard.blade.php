@@ -3,8 +3,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
                 <div class="space-y-1">
-                    <h1 class="text-4xl font-black text-slate-900 tracking-tight">Tableau de bord</h1>
-                    <p class="text-slate-400 text-sm font-medium">Gérez vos services et suivez vos performances en temps réel.</p>
+                    <h1 class="text-4xl font-black text-slate-900 tracking-tight">Tableau de bord de <span class="text-blue-600">{{ auth()->user()->name }}</span></h1>
+                    <p class="text-slate-400 text-sm font-medium">Votre espace personnel pour gérer vos prestations {{ $services->first() ? 'en ' . $services->first()->category->name : '' }}.</p>
                 </div>
                 <a href="{{ route('provider.services.create') }}" class="group bg-blue-600 text-white font-bold px-8 py-4 rounded-2xl hover:bg-slate-900 transition-all shadow-xl shadow-blue-500/20 flex items-center gap-3 active:scale-95">
                     <div class="bg-white/20 p-1.5 rounded-lg group-hover:bg-blue-500/30 transition-colors">
@@ -117,7 +117,7 @@
 
                 <!-- Messages Sidebar -->
                 <div class="lg:col-span-1">
-                    <div class="bg-white rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.02)] border border-slate-100 overflow-hidden flex flex-col h-[700px]">
+                    <div class="bg-white rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.02)] border border-slate-100 overflow-hidden flex flex-col h-[400px]">
                         <div class="p-8 border-b border-slate-50 flex items-center justify-between shrink-0">
                             <h2 class="text-lg font-bold text-slate-800">Messages</h2>
                             <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded-lg shadow-lg shadow-blue-500/20">{{ $messages->count() }}</span>
@@ -142,6 +142,34 @@
                                         <i class="far fa-comments text-3xl opacity-20"></i>
                                     </div>
                                     <p class="text-xs font-bold uppercase tracking-widest">Aucun message</p>
+                                </div>
+                            @endforelse
+                        </div>
+                    </div>
+
+                    <!-- Reviews Sidebar -->
+                    <div class="bg-white rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.02)] border border-slate-100 overflow-hidden flex flex-col h-[300px]">
+                        <div class="p-8 border-b border-slate-50 flex items-center justify-between shrink-0">
+                            <h2 class="text-lg font-bold text-slate-800">Avis Récents</h2>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                        <div class="flex-1 overflow-y-auto custom-scrollbar">
+                            @forelse($reviews as $review)
+                                <div class="p-6 border-b border-slate-50 last:border-0">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="flex text-yellow-400 text-[8px]">
+                                            @for($i = 1; $i <= 5; $i++)
+                                                <i class="fas fa-star {{ $i <= $review->rating ? '' : 'text-slate-100' }}"></i>
+                                            @endfor
+                                        </div>
+                                        <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">{{ $review->created_at->diffForHumans() }}</span>
+                                    </div>
+                                    <p class="text-xs text-slate-600 italic mb-2 line-clamp-2">"{{ $review->comment }}"</p>
+                                    <div class="text-[10px] font-bold text-blue-600 uppercase tracking-widest truncate">sur {{ $review->service->title }}</div>
+                                </div>
+                            @empty
+                                <div class="h-full flex items-center justify-center p-8 text-center text-slate-300">
+                                    <p class="text-[10px] font-bold uppercase tracking-widest">Aucun avis</p>
                                 </div>
                             @endforelse
                         </div>

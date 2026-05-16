@@ -37,6 +37,11 @@ class Service extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function images()
+    {
+        return $this->hasMany(ServiceImage::class);
+    }
+
     public function averageRating()
     {
         return $this->reviews()->avg('rating') ?: 0;

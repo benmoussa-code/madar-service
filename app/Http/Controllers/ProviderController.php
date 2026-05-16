@@ -16,6 +16,13 @@ class ProviderController extends Controller
             'total_views' => $services->sum('views'),
             'total_reviews' => \App\Models\Review::whereIn('service_id', $services->pluck('id'))->count(),
         ];
-        return view('provider.dashboard', compact('services', 'stats', 'messages'));
+        
+        $reviews = \App\Models\Review::whereIn('service_id', $services->pluck('id'))
+            ->with(['user', 'service'])
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('provider.dashboard', compact('services', 'stats', 'messages', 'reviews'));
     }
 }
